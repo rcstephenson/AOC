@@ -23,14 +23,16 @@ fn main() {
 		obj.push(&d.0);
 		orb.push(&d.1);
 	}
+	/*
 	let mut sol = 0i32;
 	for x in orb {
 		let i = get_chain_len(x, &data, 0i32);
 		sol += i;
 	}
 	println!("Part 1: {}",sol);
-	
-	println!("Part 2: {}", 0); //400~450
+	*/
+	println!("Path Test: {:?}", get_path("E", vec![String::from("F")],&data,0i32).0); //400~450
+
 }
 
 fn run(fname: &str) -> Result<Vec<Record>,csv::Error>{
@@ -63,3 +65,25 @@ fn get_chain_len(orb: &str, map: &Vec<Record>, i: i32) -> i32 {
 		-1
 	}
 }
+
+
+fn get_path(orb: &str, found: Vec<String>, map: &Vec<Record>,  i: i32) -> (i32,Vec<String>) {
+	if "COM"==orb {
+		(i,found)
+	} else {
+		for mass in map {
+			if mass.1 == orb {
+				let mut x = found.clone();
+				x.push(String::from(&mass.0));
+				println!("{:?}",x);
+				if i==0 {
+					return get_path(&mass.0, x,&map, 1);
+				} else {
+					return get_path(&mass.0, x, &map,i+1);
+				}
+			}
+		}
+		(-1,vec![])
+	}
+}
+
