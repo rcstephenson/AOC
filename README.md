@@ -4,4 +4,4 @@ Optimized for completion
 link: https://adventofcode.com/
 
 
-> Days 1-5 and any other days with Op-code problems are done in Python3, the remainder are in Rust. 
+> Days 1-5 and any other days with Intcode done in Python3, the remainder in Rust. 
