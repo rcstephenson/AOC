@@ -17,9 +17,9 @@ for i in range(0,len(data)):
         #print("EOF")
         break  
     else:
-        #print(int(data[i]), end=" ")
+        print(int(data[i]), end=" ")
         if k%4==0:
-            #print("")
+            print("")
             data2.append(data[i-3:i+1])
         k += 1
 
