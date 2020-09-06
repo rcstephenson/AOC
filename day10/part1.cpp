@@ -1,5 +1,5 @@
-#include <iostream>
 #include <math.h>
+#include <iostream>
 #include <fstream>
 #include <string>
 #include <vector>
@@ -29,50 +29,52 @@ vector<string> read_file() {
 
 
 int main() {
-    int x,y; // current position measurment 
-    int dx,dy; // differential position measurment
-    float slope,ang;
-    cout << "\nStarting..." << endl;
-    vector<string> data =  read_file();
-    // map init
-    vector<vector<set<int>>> ast_los;
-    vector<set<int>> w_zeros;
-    set<int> e = {}; 
-    for (int i=0; i<WIDTH;i++)    
-            w_zeros.push_back(e);   
-    for (int j=0;j<HEIGHT;j++) 
-        ast_los.push_back(w_zeros);
-    // -- 
+    int   x,y; // current position measurment 
+    int x2,y2; // second position measurment
+    float ang; // angle between current and second asteriod 
+    char c,c2; // char at position  
 
-    char c, c2;    
-    
+    vector<string> data =  read_file(); // load input file
+
+    vector<vector<set<float>>> ast_los; // asteriod's line of sight: f(x,y)={angles}
+    vector<set<float>> w_zeros;
+    set<float> e = {}; 
+    for (int i=0; i<WIDTH;i++) w_zeros.push_back(e);   
+    for (int j=0;j<HEIGHT;j++) ast_los.push_back(w_zeros);
+
+    cout << "\nStarting..." << endl;
+
     for (int ij=0; ij<WIDTH*HEIGHT;ij++){
         x=ij%WIDTH;
         y=ij/HEIGHT;
         c=data[y][x];
         
-        dx=0;
-        dy=0;
+        x2=0;
+        y2=0;
         if (c == '#')
         {
             
             for (int lm=0; lm<WIDTH*HEIGHT;lm++){
-                dx=lm%WIDTH;
-                dy=lm/HEIGHT;  
-                c2=data[dy][dx];
+                x2=lm%WIDTH;
+                y2=lm/HEIGHT;  
+                c2=data[y2][x2];
+
                 ang=0;
-                slope=0;
                 if (c2 == '#') {    
-                    if (abs(y - dy)== 0){
-                        slope = (x - dx) > 0 ? 90 : 270;
+                    if (abs(y - y2)== 0) {
+                        ang = ((x - x2) < 0) ? 90 : 270;
                     }
-                    else if (abs(x-dx) == 0) {
-                        slope = (y - dy) > 0 ? 0 : 180;
+                    else if (abs(x-x2) == 0) {
+                        ang = ((y - y2) < 0) ? 0 : 180;
                     } else { 
-                        slope =  (atan2((float)(y-dy),(float)(x-dx)) * (float)(180.0 / 3.14159265));
+                        ang =  (atan2((float)(x-x2),(float)(y-y2)) * (57.29577951308));
+                        if (ang < 0) {
+                            ang += 360.0;
+                        }
                     }
-                    if (ast_los[y][x].end() == ast_los[y][x].find(slope))  {
-                        ast_los[y][x].insert(slope);
+                    if (ast_los[y][x].end() == ast_los[y][x].find(ang))  {
+                        ast_los[y][x].insert(ang);
+
                     }
                 }
             }
@@ -92,4 +94,4 @@ int main() {
     }
     cout << endl << "Max: " << maxV << endl; 
     cout << "EOF.\n";    
-}
+} //243 sol lower right 
