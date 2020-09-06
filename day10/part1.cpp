@@ -94,4 +94,4 @@ int main() {
     }
     cout << endl << "Max: " << maxV << endl; 
     cout << "EOF.\n";    
-} //243 sol lower right 
+} // sol: 243 @ (21,22)
