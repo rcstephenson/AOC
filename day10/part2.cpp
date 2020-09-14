@@ -1,11 +1,9 @@
 #include <math.h>
 #include <iostream>
 #include <fstream>
-#include <string>
 #include <vector>
 #include <map>
 #include <algorithm>
-#include <set>
 
 using namespace std;
 
@@ -31,11 +29,9 @@ vector<string> read_file() {
 
    /*
     * For part 2 solution can be found by iterating through a list for points sorted by their angle
-    * step to some angle and increment if a value found was found at the current angle, then step to the next angle
+    * step to some angle and increment if a asteriod found was found at the current angle, then step to the next angle
     * stop at 200th increment.
     */
-
-   // make a new scan for case (X,Y)
 
 int main() {
     const int org_x = 20; // astriod of origin
